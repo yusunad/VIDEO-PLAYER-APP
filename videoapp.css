@@ -79,8 +79,7 @@ input[type="file"]::file-selector-button:hover {
 }
 
 video {
-  width: fit-content;
-  height: fit-content;
+  width: 100%;
   background: #eafaf1;
   border-radius: 12px;
   margin-bottom: 16px;
@@ -159,7 +158,7 @@ video {
   }
   video {
     max-width: 98vw;
-    height: 160px;
+    height: 100%;
   }
   .controlsimages img {
     width: 26px;
