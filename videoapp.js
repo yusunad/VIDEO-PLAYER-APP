@@ -32,17 +32,29 @@ playpauseIcon.addEventListener("click", function () {
 
 // function for Volume/Mute
 volumeMute.addEventListener("click", function () {
+  if (videoContainer.src === "") {
+    alert("Please select a video file first.");
+    return;
+  }
   if (videoContainer.muted) {
     videoContainer.muted = false;
     volumeMute.setAttribute("src", "img/volume.png");
   } else {
     videoContainer.muted = true;
     volumeMute.setAttribute("src", "img/mute.png");
+    if (videoContainer.src === "") {
+      alert("Please select a video file first.");
+      return;
+    }
   }
 });
 
 // enlarge video function
 enlargevideo.addEventListener("click", function () {
+  if (videoContainer.src === "") {
+    alert("Please select a video file first.");
+    return;
+  }
   if (videoContainer.requestFullscreen) {
     videoContainer.requestFullscreen();
   } else if (videoContainer.mozRequestFullScreen) {
