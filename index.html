@@ -14,6 +14,12 @@
     <div class="container">
       <!-- upload videos -->
       <input type="file" id="fileinput" accept="video/*" />
+      <input
+        type="file"
+        id="subtitleInput"
+        accept=".vtt"
+        style="display: none"
+      />
       <!-- video container -->
       <video class="video" autoplay></video>
       <!-- videos controlleras -->
@@ -28,6 +34,7 @@
             <img src="img/play.png" class="playpause" alt="" />
             <img src="img/volume.png" class="volume" alt="" />
             <img src="img/enlarge.png" class="maximize" alt="" />
+            <img src="img/subtitle.png" class="sub" alt="" />
           </div>
           <div class="time">
             <span class="currentDuration"></span>

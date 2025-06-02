@@ -4,6 +4,53 @@ const playpauseIcon = document.querySelector(".playpause");
 const volumeMute = document.querySelector(".volume");
 const enlargevideo = document.querySelector(".maximize");
 const progressBar = document.querySelector(".progress-bar");
+const subtitleInput = document.getElementById("subtitleInput");
+const addSubtitleBtn = document.querySelector(".sub");
+addSubtitleBtn.addEventListener("click", function () {
+  subtitleInput.click(); // Trigger hidden input
+});
+
+subtitleInput.addEventListener("change", function () {
+  const file = subtitleInput.files[0];
+  if (!file || !file.name.endsWith(".srt")) {
+    alert("Please select a valid .srt subtitle file.");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const srtText = e.target.result;
+    const vttText = convertSrtToVtt(srtText);
+
+    const blob = new Blob([vttText], { type: "text/vtt" });
+    const vttURL = URL.createObjectURL(blob);
+
+    const oldTrack = videoContainer.querySelector("track");
+    if (oldTrack) videoContainer.removeChild(oldTrack);
+
+    const track = document.createElement("track");
+    track.kind = "subtitles";
+    track.label = "User Subtitle";
+    track.srclang = "en";
+    track.src = vttURL;
+    track.default = true;
+    videoContainer.appendChild(track);
+
+    alert("Subtitle added successfully!");
+  };
+  reader.readAsText(file);
+});
+
+function convertSrtToVtt(srt) {
+  const vtt =
+    "WEBVTT\n\n" +
+    srt
+      .replace(/\r+/g, "") // remove \r
+      .replace(/^\d+\s*\n/gm, "") // remove subtitle numbers
+      .replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, "$1.$2"); // replace comma with dot
+  return vtt;
+}
+
 // function to select video
 selectVideo.addEventListener("change", function () {
   const video = selectVideo.files[0];
